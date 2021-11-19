@@ -1,0 +1,113 @@
+﻿
+@using Minsait_MVC.Models.ViewModel;
+@model ClientesVM
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Configuración</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Home")">Home</a>
+            </li>
+            <li>
+                <a>Clientes</a>
+            </li>
+            <li class="active">
+                <strong>Cartera Clientes</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Crear Cliente</h5>
+                    <div class="ibox-tools">
+
+                        <p>
+                            <a class="btn btn-success btn-outline" href="@Url.Action("Clientes", "Clientes")">
+                                <i class="fa fa-times"></i> Cancelar
+                            </a>
+                            <a class="btn btn-success btn-outline" id="btnGuardarCliente">
+                                <i class="fa fa-save"></i> Guardar
+                            </a>
+                        </p>
+                    </div>
+
+
+                </div>
+                <div class="ibox" id="ibox2">
+                    <div class="ibox-content">
+                        <div class="sk-spinner sk-spinner-wave">
+                            <div class="sk-rect1"></div>
+                            <div class="sk-rect2"></div>
+                            <div class="sk-rect3"></div>
+                            <div class="sk-rect4"></div>
+                            <div class="sk-rect5"></div>
+                        </div>
+                        <form class="form-horizontal" role="form" id="frmCliente" data-role="validator" novalidate="novalidate">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Cliente / Razón Social</label>
+                                <div class="col-sm-10">
+                                    <input id="txtCliente" placeholder="Escriba el nombre del cliente" class="form-control" type="text" required="required" name="NombreCliente" value="@Model.NombreCliente">
+                                    <span class="k-invalid-msg" data-for="NombreCliente"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Identificador Fiscal</label>
+                                <div class="col-sm-10">
+                                    <input id="txtIdentificadorFiscal" placeholder="Escriba el identificador fiscal del cliente" class="form-control" type="text" required="required" name="IdentificadorFiscal" value="@Model.IdentificadorFiscal">
+                                    <span class="k-invalid-msg" data-for="IdentificadorFiscal"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input id="txtEmail" placeholder="Escriba el email del cliente" class="form-control" type="email" required="required" name="Email" value="@Model.Email">
+                                    <span class="k-invalid-msg" data-for="Email"></span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">País</label>
+                                <div class="col-sm-10">
+                                    <select id="selPais" style="width:100%" validationmessage="Seleccione un país" required="required" name="IdPais"></select>
+                                    <span class="k-invalid-msg" data-for="IdPais"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Mercado</label>
+                                <div class="col-sm-10">
+                                    <select id="selMercado" style="width:100%" validationmessage="Seleccione un mercado" required="required" name="IdMercado"></select>
+                                    <span class="k-invalid-msg" data-for="IdMercado"></span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <input id="IdCliente" type="hidden" name="IdCliente" value="@Model.IdCliente">
+                            <input type="hidden" id="hdnMov" value="@ViewBag.Mov" />
+                            <input type="hidden" id="hdnUrlCliente" value="@Url.Action("Clientes", "Clientes")" />
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" id="hdnIdPais" value="@Model.IdPais" />
+    <input type="hidden" id="hdnIdMercado" value="@Model.IdMercado" />
+</div>
+
+
+<input type="hidden" id="hdnMov" value="@ViewBag.Mov" />
+
+@section Scripts {
+    <script src="~/Scripts/Clientes/ClientesChange.js"></script>
+}

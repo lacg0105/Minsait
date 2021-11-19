@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MinsaitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CatMercado">
+          <Key>
+            <PropertyRef Name="IdMercado" />
+          </Key>
+          <Property Name="IdMercado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreMercado" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CatPais">
+          <Key>
+            <PropertyRef Name="IdPais" />
+          </Key>
+          <Property Name="IdPais" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombrePais" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdPais" Type="int" Nullable="false" />
+          <Property Name="IdMercado" Type="int" Nullable="false" />
+          <Property Name="NombreCliente" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="IdentificadorFiscal" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Minsait.dbo.ContactosCliente' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="ContactosCliente">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+            <PropertyRef Name="NombreContacto" />
+            <PropertyRef Name="PuestoContacto" />
+            <PropertyRef Name="CorreoContacto" />
+            <PropertyRef Name="NumeroContacto" />
+          </Key>
+          <Property Name="IdCliente" Type="int" Nullable="false" />
+          <Property Name="NombreContacto" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PuestoContacto" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CorreoContacto" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="NumeroContacto" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Minsait.dbo.DireccionesCliente' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="DireccionesCliente">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+            <PropertyRef Name="DireccionCliente" />
+            <PropertyRef Name="TelefonoCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="int" Nullable="false" />
+          <Property Name="DireccionCliente" Type="varchar" MaxLength="800" Nullable="false" />
+          <Property Name="TelefonoCliente" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Clientes_CatMercado">
+          <End Role="CatMercado" Type="Self.CatMercado" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatMercado">
+              <PropertyRef Name="IdMercado" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="IdMercado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clientes_CatPais">
+          <End Role="CatPais" Type="Self.CatPais" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatPais">
+              <PropertyRef Name="IdPais" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="IdPais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContactosCliente_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="ContactosCliente" Type="Self.ContactosCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="ContactosCliente">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DireccionesCliente_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="DireccionesCliente" Type="Self.DireccionesCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="DireccionesCliente">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MinsaitModelStoreContainer">
+          <EntitySet Name="CatMercado" EntityType="Self.CatMercado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatPais" EntityType="Self.CatPais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContactosCliente" EntityType="Self.ContactosCliente" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ContactosCliente].[IdCliente] AS [IdCliente], 
+    [ContactosCliente].[NombreContacto] AS [NombreContacto], 
+    [ContactosCliente].[PuestoContacto] AS [PuestoContacto], 
+    [ContactosCliente].[CorreoContacto] AS [CorreoContacto], 
+    [ContactosCliente].[NumeroContacto] AS [NumeroContacto]
+    FROM [dbo].[ContactosCliente] AS [ContactosCliente]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="DireccionesCliente" EntityType="Self.DireccionesCliente" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DireccionesCliente].[IdCliente] AS [IdCliente], 
+    [DireccionesCliente].[DireccionCliente] AS [DireccionCliente], 
+    [DireccionesCliente].[TelefonoCliente] AS [TelefonoCliente]
+    FROM [dbo].[DireccionesCliente] AS [DireccionesCliente]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Clientes_CatMercado" Association="Self.FK_Clientes_CatMercado">
+            <End Role="CatMercado" EntitySet="CatMercado" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clientes_CatPais" Association="Self.FK_Clientes_CatPais">
+            <End Role="CatPais" EntitySet="CatPais" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContactosCliente_Clientes" Association="Self.FK_ContactosCliente_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="ContactosCliente" EntitySet="ContactosCliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DireccionesCliente_Clientes" Association="Self.FK_DireccionesCliente_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="DireccionesCliente" EntitySet="DireccionesCliente" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MinsaitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CatMercado">
+          <Key>
+            <PropertyRef Name="IdMercado" />
+          </Key>
+          <Property Name="IdMercado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreMercado" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_Clientes_CatMercado" FromRole="CatMercado" ToRole="Clientes" />
+        </EntityType>
+        <EntityType Name="CatPais">
+          <Key>
+            <PropertyRef Name="IdPais" />
+          </Key>
+          <Property Name="IdPais" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombrePais" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_Clientes_CatPais" FromRole="CatPais" ToRole="Clientes" />
+        </EntityType>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdPais" Type="Int32" Nullable="false" />
+          <Property Name="IdMercado" Type="Int32" Nullable="false" />
+          <Property Name="NombreCliente" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdentificadorFiscal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CatMercado" Relationship="Self.FK_Clientes_CatMercado" FromRole="Clientes" ToRole="CatMercado" />
+          <NavigationProperty Name="CatPais" Relationship="Self.FK_Clientes_CatPais" FromRole="Clientes" ToRole="CatPais" />
+          <NavigationProperty Name="ContactosCliente" Relationship="Self.FK_ContactosCliente_Clientes" FromRole="Clientes" ToRole="ContactosCliente" />
+          <NavigationProperty Name="DireccionesCliente" Relationship="Self.FK_DireccionesCliente_Clientes" FromRole="Clientes" ToRole="DireccionesCliente" />
+        </EntityType>
+        <EntityType Name="ContactosCliente">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+            <PropertyRef Name="NombreContacto" />
+            <PropertyRef Name="PuestoContacto" />
+            <PropertyRef Name="CorreoContacto" />
+            <PropertyRef Name="NumeroContacto" />
+          </Key>
+          <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <Property Name="NombreContacto" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PuestoContacto" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CorreoContacto" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NumeroContacto" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_ContactosCliente_Clientes" FromRole="ContactosCliente" ToRole="Clientes" />
+        </EntityType>
+        <EntityType Name="DireccionesCliente">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+            <PropertyRef Name="DireccionCliente" />
+            <PropertyRef Name="TelefonoCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <Property Name="DireccionCliente" Type="String" MaxLength="800" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TelefonoCliente" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_DireccionesCliente_Clientes" FromRole="DireccionesCliente" ToRole="Clientes" />
+        </EntityType>
+        <Association Name="FK_Clientes_CatMercado">
+          <End Role="CatMercado" Type="Self.CatMercado" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatMercado">
+              <PropertyRef Name="IdMercado" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="IdMercado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clientes_CatPais">
+          <End Role="CatPais" Type="Self.CatPais" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatPais">
+              <PropertyRef Name="IdPais" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="IdPais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContactosCliente_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="ContactosCliente" Type="Self.ContactosCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="ContactosCliente">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DireccionesCliente_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="DireccionesCliente" Type="Self.DireccionesCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="DireccionesCliente">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MinsaitEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CatMercado" EntityType="Self.CatMercado" />
+          <EntitySet Name="CatPais" EntityType="Self.CatPais" />
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+          <EntitySet Name="ContactosCliente" EntityType="Self.ContactosCliente" />
+          <EntitySet Name="DireccionesCliente" EntityType="Self.DireccionesCliente" />
+          <AssociationSet Name="FK_Clientes_CatMercado" Association="Self.FK_Clientes_CatMercado">
+            <End Role="CatMercado" EntitySet="CatMercado" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clientes_CatPais" Association="Self.FK_Clientes_CatPais">
+            <End Role="CatPais" EntitySet="CatPais" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContactosCliente_Clientes" Association="Self.FK_ContactosCliente_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="ContactosCliente" EntitySet="ContactosCliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DireccionesCliente_Clientes" Association="Self.FK_DireccionesCliente_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="DireccionesCliente" EntitySet="DireccionesCliente" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MinsaitModelStoreContainer" CdmEntityContainer="MinsaitEntities">
+          <EntitySetMapping Name="CatMercado">
+            <EntityTypeMapping TypeName="MinsaitModel.CatMercado">
+              <MappingFragment StoreEntitySet="CatMercado">
+                <ScalarProperty Name="IdMercado" ColumnName="IdMercado" />
+                <ScalarProperty Name="NombreMercado" ColumnName="NombreMercado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatPais">
+            <EntityTypeMapping TypeName="MinsaitModel.CatPais">
+              <MappingFragment StoreEntitySet="CatPais">
+                <ScalarProperty Name="IdPais" ColumnName="IdPais" />
+                <ScalarProperty Name="NombrePais" ColumnName="NombrePais" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="MinsaitModel.Clientes">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="IdPais" ColumnName="IdPais" />
+                <ScalarProperty Name="IdMercado" ColumnName="IdMercado" />
+                <ScalarProperty Name="NombreCliente" ColumnName="NombreCliente" />
+                <ScalarProperty Name="IdentificadorFiscal" ColumnName="IdentificadorFiscal" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContactosCliente">
+            <EntityTypeMapping TypeName="MinsaitModel.ContactosCliente">
+              <MappingFragment StoreEntitySet="ContactosCliente">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="NombreContacto" ColumnName="NombreContacto" />
+                <ScalarProperty Name="PuestoContacto" ColumnName="PuestoContacto" />
+                <ScalarProperty Name="CorreoContacto" ColumnName="CorreoContacto" />
+                <ScalarProperty Name="NumeroContacto" ColumnName="NumeroContacto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DireccionesCliente">
+            <EntityTypeMapping TypeName="MinsaitModel.DireccionesCliente">
+              <MappingFragment StoreEntitySet="DireccionesCliente">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="DireccionCliente" ColumnName="DireccionCliente" />
+                <ScalarProperty Name="TelefonoCliente" ColumnName="TelefonoCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

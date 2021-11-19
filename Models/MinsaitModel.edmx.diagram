@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0659043b40354874995884d796ff40e2" Name="Diagram1">
+        <EntityTypeShape EntityType="MinsaitModel.CatMercado" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MinsaitModel.CatPais" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MinsaitModel.Clientes" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MinsaitModel.ContactosCliente" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MinsaitModel.DireccionesCliente" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <AssociationConnector Association="MinsaitModel.FK_Clientes_CatMercado" ManuallyRouted="false" />
+        <AssociationConnector Association="MinsaitModel.FK_Clientes_CatPais" ManuallyRouted="false" />
+        <AssociationConnector Association="MinsaitModel.FK_ContactosCliente_Clientes" ManuallyRouted="false" />
+        <AssociationConnector Association="MinsaitModel.FK_DireccionesCliente_Clientes" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

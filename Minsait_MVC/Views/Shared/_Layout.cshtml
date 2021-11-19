@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mainsait</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/font-awesome/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/plugins/Kendo/KendoUi")
+    @Styles.Render("~/plugins/sweetAlertStyles")
+</head>
+<body class="mini-navbar">
+    <!-- @Html.Partial("_SkinConfig") -->
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        @Html.Partial("_Navigation")
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
+            <!-- Top Navbar -->
+            @Html.Partial("_TopNavbar")
+
+            <!-- Main view  -->
+            @RenderBody()
+
+            <!-- Footer -->
+            @*@Html.Partial("_Footer")*@
+
+        </div>
+        <!-- End page wrapper-->
+        <!-- Right Sidebar -->
+        @*@Html.Partial("_RightSidebar")*@
+
+        @*<input type="hidden" id="hdnUrlHome" value="@Url.Action("index","Home")" />
+            <input type="hidden" id="hdnUrlLogin" value="@Url.Action("Login", "Login")" />*@
+        @*<input type="hidden" id="hdnUrlMenu" value="@Url.Action("GetMenu", "Home")" />*@
+        @*<input type="hidden" id="hdnUrlValAccess" value="@Url.Action("ValidarAcceso", "Home")" />
+            <input type="hidden" id="hdnUrlLogout" value="@Url.Action("Logout", "Login")" />
+            <input type="hidden" id="hdnUrlDiaInhabil" value="@Url.Action("ObtenerDiasInhabiles", "Comun")" />*@
+
+        <a id='lnkRpt' style="display:none" />
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/plugins/slimScroll")
+    @Scripts.Render("~/bundles/inspinia")
+    @Scripts.Render("~/plugins/metsiMenu")
+    @Scripts.Render("~/bundles/skinConfig")
+    @Scripts.Render("~/plugins/Kendo")
+    @Scripts.Render("~/plugins/sweetAlert")
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

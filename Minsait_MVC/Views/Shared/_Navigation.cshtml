@@ -1,0 +1,26 @@
+﻿<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <span>
+                    </span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                                <strong class="font-bold">Minsait</strong>
+                            </span> <span class="text-muted text-xs block">Admin <b class="caret"></b></span>
+                        </span>
+                    </a>
+                </div>
+            </li>
+            <li class="active">
+                <a href="#"><i class="fa fa-handshake-o"></i> <span class="nav-label">Clientes</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="@Url.Action("Clientes", "Clientes")"><i class="fa fa-suitcase"></i>Cartera Clientes</a></li>
+                    <li><a href="@Url.Action("ContactoClientes", "ContactoClientes")"><i class="fa fa-id-card"></i>Contacto Clientes</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
